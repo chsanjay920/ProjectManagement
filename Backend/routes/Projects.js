@@ -11,6 +11,25 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 })
+router.get('/:id', getProjectById, async (req, res) => {
+    res.json(res.project);
+});
+
+//Get project by Id
+async function getProjectById(req, res, next) {
+    let project;
+    try {
+        project = await Project.findById(req.params.id);
+        if (project == null) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+
+    res.project = project;
+    next();
+}
 
 // Creating one Project
 router.post('/', async (req, res) => {

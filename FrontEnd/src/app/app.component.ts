@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FrontEnd';
+  isLogedIn = false;
+  isAdmin = true;
+  AccountName = "sanjay"
+
+  logout()
+  {
+    
+  }
 }

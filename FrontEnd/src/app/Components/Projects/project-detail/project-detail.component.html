@@ -1,0 +1,70 @@
+<div class="card ">
+  <div class="card-header">
+    {{"Project Detail Page" | uppercase}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">
+      {{this.currentSelectedProject.project_name | uppercase}}
+    </h5>
+    <p class="card-text">
+      {{this.currentSelectedProject.project_description}}
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="" style="height: 10rem; width: 30%; overflow-y: scroll;">
+        <h3>
+          Add Team Member
+        </h3>
+        <div class="list-group" *ngFor="let emp of EmployeesList">
+          <div class="list-group-item list-group-item-action">
+            <div class="row">
+              <div class="col-1">
+                <input type="checkbox" name="{{emp.first_name}}" id="{{emp.first_name}}">
+              </div>
+              <div class="col">
+                {{emp.first_name}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="collapse" id="userstory">
+      <div class="card card-body">
+        placeholder content for the collapse component. This panel is hidden by default but revealed when the user
+        activates the relevant trigger.
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-4">
+        <div class="card ">
+          <div class="card-header ">
+            <b>
+              {{"Current Sprint" | uppercase}}
+            </b>
+          </div>
+          <div class="card-body text-uppercase">
+            Completed {{this.currentSelectedProject.completed_story_points}} of
+            {{this.currentSelectedProject.total_story_points}}
+          </div>
+          <canvas id="pieChart"></canvas>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+              aria-expanded="false" aria-controls="collapseExample" (click)="getAllEmployees()">
+              {{"Add Team Member" | uppercase}}
+            </button>
+          </div>
+          <div class="col">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#userstory"
+              aria-expanded="false" aria-controls="collapseExample">
+              {{"Add User Story"| uppercase}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
