@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const Project = require('../models/Project')
+const ProjectAssignment = require('../models/ProjectAssignment')
+
 
 // Getting all Projects
 router.get('/', async (req, res) => {
@@ -42,10 +44,17 @@ router.post('/', async (req, res) => {
         project_status: req.body.project_status,
         start_date: req.body.start_date,
         end_date: req.body.end_date
-    })
+    });
+    
     try {
-        const newManager = await project.save()
-        res.status(201).json(newManager)
+        const Newproject = await project.save()
+        const newProjectAssignment = new ProjectAssignment({
+            project: Newproject._id,
+            employees: []
+        });
+        newProjectAssignment.save()
+        console.log(Newproject);
+        res.status(201).json(Newproject)
     } catch (err) {
         res.status(400).json({ message: err.message })
     }

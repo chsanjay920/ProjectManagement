@@ -28,6 +28,7 @@ export class AddEmployeeComponent {
         .toString()
     ),
   });
+  
   onSubmit() {
     if (this.EmployeeForm.status == 'VALID') {
       const EmployeeDataObject: EmployeeModel = {

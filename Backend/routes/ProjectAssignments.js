@@ -1,30 +1,72 @@
-const mongoose = require('mongoose');
+const express = require('express')
+const router = express.Router()
+const Project = require('../models/Project')
+const Employee = require('../models/Employee')
+const ProjectAssignment = require('../models/ProjectAssignment')
 
-router.post('/', async (req, res) => {
+
+router.get('/:id', async (req, res) => {
+    try{
+        const { project_id } = req.params.id;
+        const employees = await ProjectAssignment.findOne({ project: project_id }).populate('employees');
+        console.log(employees);
+        //res.status(201).json({ message: 'Assignment created successfully' });
+        res.json(employees);
+    }catch(error)
+    {   
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
+// get projects based on employee id.
+router.get('/employee/:id', async (req, res) => {
     try {
-        // Assuming your request body contains employeeId and projectId
-        const { employeeId, projectId } = req.body;
+        const { id } = req.params;
+        const projectAssignments = await ProjectAssignment.find({ employees: id }).populate('project');
+        const projects = projectAssignments.map(assignment => assignment.project);
+        res.json(projects);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
-        // Check if the employee and project exist
-        const employee = await Employee.findById(employeeId);
-        const project = await Project.findById(projectId);
+//get employess based on Project id
+router.get('/project/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const projectAssignments = await ProjectAssignment.find({ project: id }).populate('employees');
+        const employees = projectAssignments.map(assignment => assignment.employees);
+        res.json(employees);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
-        if (!employee || !project) {
-            return res.status(404).json({ message: 'Employee or Project not found' });
-        }
 
-        // Create a new assignment
-        const newAssignment = new Assignment({
-            employee: employeeId,
-            project: projectId
-        });
 
-        // Save the assignment to the database
-        await newAssignment.save();
 
+router.put('/', async (req, res) => {
+    try {
+        const { project_id, employees_id } = req.body;
+        console.log(employees_id);
+        await ProjectAssignment.updateOne(
+            { project: project_id },
+            { $addToSet: { employees: employees_id } }
+        );
         res.status(201).json({ message: 'Assignment created successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 })
+
+
+
+
+
+
+module.exports = router

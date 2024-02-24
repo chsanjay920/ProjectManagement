@@ -6,8 +6,12 @@ import { EditProjectComponent } from './Components/Projects/edit-project/edit-pr
 import { AllEmployeesComponent } from './Components/Employees/all-employees/all-employees.component';
 import { AddEmployeeComponent } from './Components/Employees/add-employee/add-employee.component';
 import { ProjectDetailComponent } from './Components/Projects/project-detail/project-detail.component';
+import { HomeComponent } from './Components/home/home.component';
+import { LoginComponent } from './Components/login/login.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'projects', component: AllProjectsComponent },
   { path: 'projects/AddProject', component: AddProjectComponent },
   {
@@ -17,16 +21,15 @@ const routes: Routes = [
   {
     path: 'project/detail',
     component: ProjectDetailComponent,
-    
   },
   {
     path: 'team',
     component: AllEmployeesComponent,
   },
   {
-    path:'team/add',
-    component:AddEmployeeComponent,
-  }
+    path: 'team/add',
+    component: AddEmployeeComponent,
+  },
 ];
 
 @NgModule({

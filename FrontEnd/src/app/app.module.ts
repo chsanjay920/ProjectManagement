@@ -12,6 +12,9 @@ import { EditProjectComponent } from './Components/Projects/edit-project/edit-pr
 import { AllEmployeesComponent } from './Components/Employees/all-employees/all-employees.component';
 import { AddEmployeeComponent } from './Components/Employees/add-employee/add-employee.component';
 import { ProjectDetailComponent } from './Components/Projects/project-detail/project-detail.component';
+import { DoughNutComponent } from './Components/Projects/dough-nut/dough-nut.component';
+import { HomeComponent } from './Components/home/home.component';
+import { LoginComponent } from './Components/login/login.component';
 
 
 
@@ -24,13 +27,17 @@ import { ProjectDetailComponent } from './Components/Projects/project-detail/pro
     EditProjectComponent,
     AllEmployeesComponent,
     AddEmployeeComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    DoughNutComponent,
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EmployeeModel } from '../Models/employee';
+import { LoginModel } from '../Models/login';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,9 @@ export class EmployeeService {
   }
   postEmployee(data: EmployeeModel): any {
     return this.http.post<any>(`${this.apiUrl}employees/`, data);
+  }
+  SignIn(data: LoginModel): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}employees/employee`, data);
   }
   // SignIn(data: LoginModel): Observable<any> {
   //   return this.http.post<any>(`${this.apiUrl}employees/employee`, data);

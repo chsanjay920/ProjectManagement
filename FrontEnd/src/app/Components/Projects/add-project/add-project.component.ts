@@ -32,7 +32,6 @@ export class AddProjectComponent {
         start_date: this.projectForm.value.startDate!,
         end_date: this.projectForm.value.endDate!,
       };
-      debugger;
       this.projectservice.postProject(project).subscribe((data: any) => {
         alert('New Project Added Successfully.');
         this.projectForm.reset();
