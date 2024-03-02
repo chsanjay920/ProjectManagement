@@ -26,19 +26,7 @@
               <span class="ms-1 d-none d-sm-inline">Team</span> 
             </a>
           </li>
-          <!-- <div *ngIf="!isLogedIn">
-            <li>
-              <a routerLink="/employees" data-bs-toggle="collapse" class="fc-mylight nav-link px-0 align-middle">
-                <i class="fs-4 bi-people"></i>
-                <span class="ms-1 d-none d-sm-inline">Employees</span>
-              </a>
-            </li>
-            <li>
-              <a routerLink="/projects" data-bs-toggle="collapse" class="fc-mylight nav-link px-0 align-middle">
-                <i class="fs-4 bi-grid"></i> 
-                <span class="ms-1 d-none d-sm-inline">Projects</span> 
-              </a>
-            </li>
+           <div *ngIf="!isLogedIn">
             <li>
               <a routerLink="/reviews" class="nav-link px-0 align-middle fc-mylight">
                 <i class="fs-4 bi bi-receipt-cutoff"></i>
@@ -51,10 +39,9 @@
                 <span class="ms-1 d-none d-sm-inline">Portfoilo</span>
                </a>
             </li>
-            
           </div>
           <div *ngIf="isAdmin && isLogedIn">
-            <li>
+            <!-- <li>
               <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                 <i class="fs-4 bi-people"></i>
                 <span class="ms-1 d-none d-sm-inline">Employees</span> </a>
@@ -70,7 +57,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
             <li>
               <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                 <i class="fs-4 bi-grid"></i> 
@@ -89,66 +76,22 @@
                 </li>
               </ul>
             </li>
-            <li>
-              <a routerLink="/leaves" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi bi-calendar2-week"></i>
-                <span class="ms-1 d-none d-sm-inline">Leaves Requests</span>
-               </a>
-            </li>
-            <li>
-              <a routerLink="/billing" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi bi-receipt-cutoff"></i>
-                <span class="ms-1 d-none d-sm-inline">Billing</span>
-               </a>
-            </li>
           </div>
           <div *ngIf="!isAdmin && isLogedIn">
-            <li>
-              <a routerLink="/employees" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi-people"></i>
-                <span class="ms-1 d-none d-sm-inline">Employees</span> </a>
-            </li>
-            <li>
-              <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi-grid"></i> 
-                <span class="ms-1 d-none d-sm-inline">Projects</span> 
-              </a>
-              <ul class="collapse  nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                <li class="w-100">
-                  <a routerLink="/projects" class="nav-link px-0"> 
-                    <span class="d-none d-sm-inline">Live Projects</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a routerLink="/leaves/request" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi bi-calendar2-week"></i>
-                <span class="ms-1 d-none d-sm-inline">Apply Leave</span>
-               </a>
-            </li>
-            <li>
-              <a routerLink="/timesheet" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi bi-receipt-cutoff"></i>
-                <span class="ms-1 d-none d-sm-inline">Submit TimeSheet</span>
-               </a>
-            </li>
-            <li>
-              <a routerLink="/notifications" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi bi-chat-left-dots"></i>
-                <span class="ms-1 d-none d-sm-inline">Messages</span>
-               </a>
-            </li>
+
+            
+            
+            
           </div>
           <li>
-            <button  *ngIf="isLogedIn" (click)="logout()" class="nav-link px-0 align-middle">
+            <button *ngIf="isLogedIn" (click)="logout()" class="nav-link px-0 align-middle">
               <i class="fs-4 bi bi-box-arrow-left"></i>
               <span class="ms-1 d-none d-sm-inline">Logout</span> 
             </button>
-          </li> -->
+          </li> 
         </ul>
         <hr>
-        <!-- <div *ngIf="isLogedIn" class="dropdown pb-4 fc-mylight">
+        <div *ngIf="isLogedIn" class="dropdown pb-4 fc-mylight">
           <a routerLink="/profile" class="d-flex align-items-center text-white text-decoration-none" id="dropdownUser1"
             data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fs-4 bi bi-person-square fc-mylight"></i>
@@ -166,7 +109,7 @@
               Please Login
             </span>
           </a>
-        </div> -->
+        </div>
       </div>
     </div>
     <div class="col py-3" style="max-height: 100vh; overflow-y: scroll;">
