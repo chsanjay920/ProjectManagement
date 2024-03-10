@@ -15,6 +15,11 @@ import { ProjectDetailComponent } from './Components/Projects/project-detail/pro
 import { DoughNutComponent } from './Components/Projects/dough-nut/dough-nut.component';
 import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
+import { BacklogsComponent } from './Components/Projects/backlogs/backlogs.component';
+import { SprintsComponent } from './Components/Projects/sprints/sprints.component';
+import { AssignStoriesToSprintComponent } from './Components/Projects/assign-stories-to-sprint/assign-stories-to-sprint.component';
+import { WorkItemsComponent } from './Components/Projects/work-items/work-items.component';
+import { AssignWorkItemsComponent } from './Components/Projects/assign-work-items/assign-work-items.component';
 
 
 
@@ -30,7 +35,12 @@ import { LoginComponent } from './Components/login/login.component';
     ProjectDetailComponent,
     DoughNutComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    BacklogsComponent,
+    SprintsComponent,
+    AssignStoriesToSprintComponent,
+    WorkItemsComponent,
+    AssignWorkItemsComponent
   ],
   imports: [
     BrowserModule,

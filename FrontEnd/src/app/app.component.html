@@ -14,19 +14,7 @@
               <span class="ms-1 d-none  d-sm-inline">Home</span>
             </a>
           </li>
-          <li>
-            <a routerLink="/projects" data-bs-toggle="collapse" class="fc-mylight nav-link px-0 align-middle">
-              <i class="fs-4 bi-grid"></i> 
-              <span class="ms-1 d-none d-sm-inline">Projects</span> 
-            </a>
-          </li>
-          <li>
-            <a routerLink="/team" data-bs-toggle="collapse" class="fc-mylight nav-link px-0 align-middle">
-              <i class="fs-4 bi-people"></i> 
-              <span class="ms-1 d-none d-sm-inline">Team</span> 
-            </a>
-          </li>
-           <div *ngIf="!isLogedIn">
+          <div *ngIf="!isLogedIn">
             <li>
               <a routerLink="/reviews" class="nav-link px-0 align-middle fc-mylight">
                 <i class="fs-4 bi bi-receipt-cutoff"></i>
@@ -41,36 +29,36 @@
             </li>
           </div>
           <div *ngIf="isAdmin && isLogedIn">
-            <!-- <li>
-              <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+            <li>
+              <a href="#submenu1" data-bs-toggle="collapse" class="nav-link fc-mylight px-0 align-middle">
                 <i class="fs-4 bi-people"></i>
-                <span class="ms-1 d-none d-sm-inline">Employees</span> </a>
-              <ul class="collapse  nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                <li class="w-100">
-                  <a routerLink="/employees" class="nav-link px-0"> 
-                    <span class="d-none d-sm-inline">Employees List</span>
+                <span class="ms-1 d-none d-sm-inline">Team Members</span> </a>
+              <ul class="collapse   nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                <li class="w-100  ">
+                  <a routerLink="/team" class="nav-link px-0"> 
+                    <span class="d-none d-sm-inline fc-mylight">Team List</span>
                   </a>
                 </li>
                 <li>
-                  <a routerLink="/employees/add" class="nav-link px-0"> 
-                    <span class="d-none d-sm-inline">Add Employee</span>
+                  <a routerLink="/team/add" class="nav-link px-0"> 
+                    <span class="d-none d-sm-inline fc-mylight">Add New Team Member</span>
                   </a>
                 </li>
               </ul>
-            </li> -->
+            </li> 
             <li>
-              <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+              <a href="#submenu2" data-bs-toggle="collapse" class="nav-link fc-mylight px-0 align-middle">
                 <i class="fs-4 bi-grid"></i> 
                 <span class="ms-1 d-none d-sm-inline">Projects</span> 
               </a>
               <ul class="collapse  nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                 <li class="w-100">
-                  <a routerLink="/projects" class="nav-link px-0"> 
+                  <a routerLink="/projects" class="nav-link px-0 fc-mylight"> 
                     <span class="d-none d-sm-inline">Live Projects</span>
                   </a>
                 </li>
                 <li>
-                  <a routerLink="/projects/add" class="nav-link px-0"> 
+                  <a routerLink="/projects/AddProject" class="nav-link px-0 fc-mylight"> 
                     <span class="d-none d-sm-inline">Add New Project</span>
                   </a>
                 </li>
@@ -78,13 +66,21 @@
             </li>
           </div>
           <div *ngIf="!isAdmin && isLogedIn">
-
-            
-            
-            
+            <li>
+              <a routerLink="/projects" data-bs-toggle="collapse" class="fc-mylight nav-link px-0 align-middle">
+                <i class="fs-4 bi-grid"></i> 
+                <span class="ms-1 d-none d-sm-inline">Projects</span> 
+              </a>
+            </li>
+            <li>
+              <a routerLink="/team" data-bs-toggle="collapse" class="fc-mylight nav-link px-0 align-middle">
+                <i class="fs-4 bi-people"></i> 
+                <span class="ms-1 d-none d-sm-inline">Team</span> 
+              </a>
+            </li>
           </div>
           <li>
-            <button *ngIf="isLogedIn" (click)="logout()" class="nav-link px-0 align-middle">
+            <button *ngIf="isLogedIn" (click)="logout()" class="nav-link fc-mylight px-0 align-middle">
               <i class="fs-4 bi bi-box-arrow-left"></i>
               <span class="ms-1 d-none d-sm-inline">Logout</span> 
             </button>

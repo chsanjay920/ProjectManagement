@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
 import { Subscription } from 'rxjs';
 
@@ -64,7 +64,8 @@ export class ProjectDetailComponent implements OnInit {
     private projectAssignment: ProjectAssignmentService,
     private employeesService: EmployeeService,
     private userstoryservice: UserstoryService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private redirectRoute: Router, 
   ) {}
 
   ngOnInit() {
@@ -214,7 +215,6 @@ export class ProjectDetailComponent implements OnInit {
         description: this.UserstoryForm.value.description!,
         status: 'NEW',
       };
-      debugger;
       this.userstoryservice.postUserStory(userstory).subscribe((data: any) => {
         alert('New User Story Added Successfully.');
         window.location.reload();
@@ -223,4 +223,34 @@ export class ProjectDetailComponent implements OnInit {
       alert('Enter Valid Data! All Feilds Are Required.');
     }
   }
+
+  RedirectToBacklogs()
+  {
+    this.redirectRoute.navigate(
+      ['project/backlogs'],
+      { queryParams: { id: this.currentSelectedProject._id } }
+    );
+  }
+  RedirectToSprints()
+  {
+    this.redirectRoute.navigate(
+      ['project/sprints'],
+      { queryParams: { id: this.currentSelectedProject._id } }
+    );
+  }
+  RedirectToWorkItems()
+  {
+    this.redirectRoute.navigate(
+      ['project/workitems'],
+      { queryParams: { id: this.currentSelectedProject._id } }
+    );
+  }
+  RedirectToAssignWorkItems()
+  {
+    this.redirectRoute.navigate(
+      ['project/assign/workitems'],
+      { queryParams: { id: this.currentSelectedProject._id } }
+    );
+  }
+  
 }

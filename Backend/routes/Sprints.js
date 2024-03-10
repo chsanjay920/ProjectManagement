@@ -31,7 +31,17 @@ router.get('/project/:id', async (req, res) => {
     }
 });
 
-
+//get sprint by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const sprint = await Sprint.findById( id );
+        res.json(sprint);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
 
 

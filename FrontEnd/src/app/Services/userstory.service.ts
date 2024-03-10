@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { sprintModel } from '../Models/sprint';
 import { userstoryModel } from '../Models/userstory';
 
-@Injectable({
+@Injectable({ 
   providedIn: 'root'
 })
 export class UserstoryService {
