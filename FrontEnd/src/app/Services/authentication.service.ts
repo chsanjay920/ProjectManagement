@@ -60,7 +60,7 @@ export class AuthenticationService {
   }
   IsAdmin() {
     const data = JSON.parse(localStorage.getItem('logintoken')!);
-    if (data && data.role == 'HR_MANAGMENT') {
+    if (data && data.role == 'ADMIN') {
       return true;
     }
     return false;

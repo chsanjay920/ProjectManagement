@@ -11,7 +11,7 @@ export class BacklogService {
 
   constructor(private http: HttpClient) {}
   postBacklog(data: backlogModel): any {
-    return this.http.post<any>(`${this.apiUrl}backlogs/populate`, data);
+    return this.http.post<any>(`${this.apiUrl}backlogs`, data);
   }
   getBacklogListByProject(id: any): Observable<any> {
     return this.http.get<any[]>(`${this.apiUrl}backlogs/project/${id}`);

@@ -62,7 +62,7 @@ router.get('/project/:id', async (req, res) => {
 router.get('/sprint/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const backlogs = await Backlog.find({ sprint_id: id }).populate();
+        const backlogs = await Backlog.find({ sprint_id: id }).populate('employee_id');
         res.json(backlogs);
     } catch (error) {
         console.error(error);
@@ -109,6 +109,9 @@ router.post('/assign/team', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+
+
 
 
 

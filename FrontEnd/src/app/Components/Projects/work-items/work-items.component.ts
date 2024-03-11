@@ -64,7 +64,7 @@ export class WorkItemsComponent implements OnInit{
   {
     this.backlogservice.getBacklogListBySprint(sprintId).subscribe
     ((data)=>{
-      this.AllWorkItemsInThisSprint  = data;
+      this.AllWorkItemsInThisSprint  = data.filter((item:any)=>item.employee_id !=null);
       console.log(this.AllWorkItemsInThisSprint);
     });
   }

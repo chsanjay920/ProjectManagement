@@ -48,7 +48,7 @@ export class AddEmployeeComponent {
         .postEmployee(EmployeeDataObject)
         .subscribe((data: any) => {
           alert('New Employee Added Successfully.');
-          this.EmployeeForm.reset();
+          window.location.reload();
         });
     } else {
       alert('Enter Valid Data! All Feilds Are Required.');
