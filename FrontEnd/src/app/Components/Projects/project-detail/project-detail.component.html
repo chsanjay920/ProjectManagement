@@ -42,27 +42,16 @@
         <div class="row">
           <div class="col">
             <div class="row mb-2">
-              <button class="btn btn-primary col mx-1 " type="button" (click)="RedirectToBacklogs()"
-                >
+              <button class="btn btn-primary col mx-1 " type="button" (click)="RedirectToBacklogs()">
                 {{"Project Backlogs" | uppercase}}
               </button>
-              <button class="btn btn-primary col mx-1 " type="button" (click)="RedirectToSprints()"
-                >
+              <button class="btn btn-primary col mx-1 " type="button" (click)="RedirectToSprints()">
                 {{"Sprints" | uppercase}}
               </button>
-              <button class="btn btn-primary col mx-1 " type="button" (click)="RedirectToWorkItems()"
-              >
-              {{"Work Items" | uppercase}}
-            </button>
-            <button class="btn btn-primary col mx-1 " type="button" (click)="RedirectToAssignWorkItems()"
-              >
-              {{"Assing Work Items" | uppercase}}
-            </button>
-              <button class="btn btn-primary col mx-1 " type="button" data-bs-toggle="collapse"
-                data-bs-target="#TeamMemberAdd" aria-expanded="false" aria-controls="collapseExample"
-                (click)="getAllEmployees()">
-                {{"Add Team Member" | uppercase}}
+              <button class="btn btn-primary col mx-1 " type="button" (click)="RedirectToWorkItems()">
+                {{"Work Items" | uppercase}}
               </button>
+              
               <!-- <button class="btn btn-primary col mx-1 " type="button" data-bs-toggle="collapse" data-bs-target="#sprint"
                 aria-expanded="false" aria-controls="collapseExample">
                 {{"Add Sprint" | uppercase}}
@@ -71,6 +60,16 @@
                 data-bs-target="#userstory" aria-expanded="false" aria-controls="collapseExample">
                 {{"Add User Story"| uppercase}}
               </button> -->
+            </div>
+            <div class="row mb-5">
+              <button class="btn btn-primary col mx-1 " type="button" (click)="RedirectToAssignWorkItems()">
+                {{"Assing Work Items" | uppercase}}
+              </button>
+              <button class="btn btn-primary col mx-1 " type="button" data-bs-toggle="collapse"
+                data-bs-target="#TeamMemberAdd" aria-expanded="false" aria-controls="collapseExample"
+                (click)="getAllEmployees()">
+                {{"Add Team Member to Project" | uppercase}}
+              </button>
             </div>
             <div class="collapse" id="TeamMemberAdd">
               <div class="" style="max-height: 30rem;  overflow-y: scroll;">
@@ -182,7 +181,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col">
             <div class="">
               <h5>
@@ -202,7 +201,7 @@
               </ol>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>

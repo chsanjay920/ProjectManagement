@@ -174,7 +174,7 @@ export class ProjectDetailComponent implements OnInit {
       .subscribe(
         (data: any) => {
           alert('New Employee Added Successfully.');
-          // Handle success appropriately
+          window.location.reload();
         },
         (error: any) => {
           console.error('Error adding employees to project:', error);

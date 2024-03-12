@@ -8,17 +8,16 @@ import { EmployeeService } from 'src/app/Services/employee.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-
   constructor(
     private employeeService: EmployeeService,
     private authService: AuthenticationService,
     private router: Router
   ) {}
   LoginForm = new FormGroup({
-    Email: new FormControl('', [Validators.required,Validators.email]),
+    Email: new FormControl('', [Validators.required, Validators.email]),
     Password: new FormControl('', [Validators.required]),
   });
   onSubmit() {
@@ -30,7 +29,7 @@ export class LoginComponent {
       this.employeeService.SignIn(logindata).subscribe((data) => {
         if (data != null) {
           this.authService.storeToken(data);
-          debugger;
+          this.router.navigateByUrl('/');
         } else {
           alert('Wrong Credientials! Try Again');
           this.LoginForm.reset();
@@ -40,5 +39,4 @@ export class LoginComponent {
       alert('Enter Valid Data!');
     }
   }
-
 }

@@ -13,18 +13,30 @@ import { SprintsComponent } from './Components/Projects/sprints/sprints.componen
 import { AssignStoriesToSprintComponent } from './Components/Projects/assign-stories-to-sprint/assign-stories-to-sprint.component';
 import { WorkItemsComponent } from './Components/Projects/work-items/work-items.component';
 import { AssignWorkItemsComponent } from './Components/Projects/assign-work-items/assign-work-items.component';
+import { authGuard } from './Gaurds/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  // any logged users 
+  // any logged users
   { path: 'projects', component: AllProjectsComponent },
   // admin user
-  { path: 'projects/AddProject', component: AddProjectComponent },
+  {
+    path: 'projects/AddProject',
+    component: AddProjectComponent,
+    canActivate: [authGuard],
+    data: {
+      expectedRole: 'ADMIN',
+    },
+  },
   // admin user
   {
     path: 'project/edit',
     component: EditProjectComponent,
+    canActivate: [authGuard],
+    data: {
+      expectedRole: 'ADMIN',
+    },
   },
   // any logged users
   {
@@ -42,6 +54,10 @@ const routes: Routes = [
   {
     path: 'project/sprints/assign',
     component: AssignStoriesToSprintComponent,
+    canActivate: [authGuard],
+    data: {
+      expectedRole: 'ADMIN',
+    },
   },
   {
     path: 'project/workitems',
@@ -50,6 +66,10 @@ const routes: Routes = [
   {
     path: 'project/assign/workitems',
     component: AssignWorkItemsComponent,
+    canActivate: [authGuard],
+    data: {
+      expectedRole: 'ADMIN',
+    },
   },
   // any logged users
   {
@@ -60,6 +80,10 @@ const routes: Routes = [
   {
     path: 'team/add',
     component: AddEmployeeComponent,
+    canActivate: [authGuard],
+    data: {
+      expectedRole: 'ADMIN',
+    },
   },
 ];
 
