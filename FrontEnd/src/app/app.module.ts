@@ -20,6 +20,7 @@ import { SprintsComponent } from './Components/Projects/sprints/sprints.componen
 import { AssignStoriesToSprintComponent } from './Components/Projects/assign-stories-to-sprint/assign-stories-to-sprint.component';
 import { WorkItemsComponent } from './Components/Projects/work-items/work-items.component';
 import { AssignWorkItemsComponent } from './Components/Projects/assign-work-items/assign-work-items.component';
+import { MyitemsComponent } from './Components/Projects/myitems/myitems.component';
 
 
 
@@ -40,7 +41,8 @@ import { AssignWorkItemsComponent } from './Components/Projects/assign-work-item
     SprintsComponent,
     AssignStoriesToSprintComponent,
     WorkItemsComponent,
-    AssignWorkItemsComponent
+    AssignWorkItemsComponent,
+    MyitemsComponent
   ],
   imports: [
     BrowserModule,

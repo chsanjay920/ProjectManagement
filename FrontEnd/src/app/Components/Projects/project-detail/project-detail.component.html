@@ -4,11 +4,11 @@
       <div class="col-10">
         {{"Project Detail Page" | uppercase}}
       </div>
-      <div (click)="RedirectToProjects()" class="col-2" style="text-align: right; cursor: pointer; text-decoration: underline;">
+      <div (click)="RedirectToProjects()" class="col-2"
+        style="text-align: right; cursor: pointer; text-decoration: underline;">
         Back to Projects
       </div>
     </div>
-
   </div>
   <div class="card-body">
     <h5 class="card-title">
@@ -59,7 +59,7 @@
               <button class="btn btn-primary col mx-1 " type="button" (click)="RedirectToWorkItems()">
                 {{"Work Items" | uppercase}}
               </button>
-              
+
               <!-- <button class="btn btn-primary col mx-1 " type="button" data-bs-toggle="collapse" data-bs-target="#sprint"
                 aria-expanded="false" aria-controls="collapseExample">
                 {{"Add Sprint" | uppercase}}
@@ -68,6 +68,11 @@
                 data-bs-target="#userstory" aria-expanded="false" aria-controls="collapseExample">
                 {{"Add User Story"| uppercase}}
               </button> -->
+            </div>
+            <div *ngIf="!this.isAdmin" class="row mb-5">
+              <button class="btn btn-primary col mx-1 " type="button" (click)="RedirectToMyAssignments()">
+                {{"My Assignments" | uppercase}}
+              </button>
             </div>
             <div *ngIf="this.isAdmin" class="row mb-5">
               <button class="btn btn-primary col mx-1 " type="button" (click)="RedirectToAssignWorkItems()">

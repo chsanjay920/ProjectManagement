@@ -253,4 +253,10 @@ export class ProjectDetailComponent implements OnInit {
   RedirectToProjects() {
     this.redirectRoute.navigate(['projects']);
   }
+  RedirectToMyAssignments()
+  {
+    this.redirectRoute.navigate(['project/myitems'], {
+      queryParams: { id: this.currentSelectedProject._id },
+    });
+  }
 }

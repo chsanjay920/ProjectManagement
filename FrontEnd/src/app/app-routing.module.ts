@@ -14,6 +14,7 @@ import { AssignStoriesToSprintComponent } from './Components/Projects/assign-sto
 import { WorkItemsComponent } from './Components/Projects/work-items/work-items.component';
 import { AssignWorkItemsComponent } from './Components/Projects/assign-work-items/assign-work-items.component';
 import { authGuard } from './Gaurds/auth.guard';
+import { MyitemsComponent } from './Components/Projects/myitems/myitems.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -81,6 +82,10 @@ const routes: Routes = [
     //   expectedRole: 'ADMIN',
     // },
   },
+  {
+    path:"project/myitems",
+    component: MyitemsComponent
+  }
 ];
 
 @NgModule({

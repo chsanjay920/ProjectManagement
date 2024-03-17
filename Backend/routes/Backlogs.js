@@ -111,6 +111,24 @@ router.post('/assign/team', async (req, res) => {
 });
 
 
+//update backlog status
+router.post('/backlogs/update', async (req, res) => {
+    try {
+        const backlogId = req.body.backlogId;
+        const status = req.body.status;
+
+        console.log(req.body);
+        const existingBacklog = await Backlog.findById(backlogId);
+        existingBacklog.status = status;
+        await existingBacklog.save();
+
+        res.status(201).json(existingBacklog);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: err.message });
+    }
+});
+
 
 
 

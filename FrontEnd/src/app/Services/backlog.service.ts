@@ -26,8 +26,10 @@ export class BacklogService {
     };
     return this.http.post<any>(`${this.apiUrl}backlogs/assign`, data);
   }
-  setTeamMemberAndStatus(data:any)
-  {
+  setTeamMemberAndStatus(data: any) {
     return this.http.post<any>(`${this.apiUrl}backlogs/assign/team`, data);
+  }
+  updateBacklog(data: any) {
+    return this.http.post<any>(`${this.apiUrl}backlogs/update`, data);
   }
 }
