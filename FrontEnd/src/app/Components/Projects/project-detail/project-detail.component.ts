@@ -12,6 +12,7 @@ import { sprintModel } from 'src/app/Models/sprint';
 import { SprintService } from 'src/app/Services/sprint.service';
 import { userstoryModel } from 'src/app/Models/userstory';
 import { UserstoryService } from 'src/app/Services/userstory.service';
+import { AuthenticationService } from 'src/app/Services/authentication.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -30,6 +31,9 @@ export class ProjectDetailComponent implements OnInit {
   EmployeesInProject: any[] = [];
   SprintsInProjects: any[] = [];
   UserStoriesList: any[] = [];
+  subscription: any;
+  isLogedIn: boolean = false;
+  isAdmin: boolean = false;
   employeeForm = new FormGroup({
     selectedEmployees: new FormControl([]),
   });
@@ -65,10 +69,16 @@ export class ProjectDetailComponent implements OnInit {
     private employeesService: EmployeeService,
     private userstoryservice: UserstoryService,
     private route: ActivatedRoute,
-    private redirectRoute: Router, 
+    private redirectRoute: Router,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit() {
+    this.subscription = this.authService.IsLogedIn.subscribe((data) => {
+      this.isLogedIn = data.IsLogin;
+      this.isAdmin = data.IsAdmin;
+    });
+    this.authService.checkToken();
     this.route.queryParams.subscribe((params) => {
       const projectId = params['id'];
       if (projectId) {
@@ -80,12 +90,10 @@ export class ProjectDetailComponent implements OnInit {
           },
           (error) => {
             console.error('Error fetching project:', error);
-            // Handle error appropriately (e.g., show a user-friendly message)
           }
         );
       } else {
         console.error('Project ID is missing');
-        // Handle missing project ID
       }
     });
     this.getAllEmployees();
@@ -120,7 +128,6 @@ export class ProjectDetailComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching all employees:', error);
-        // Handle error appropriately (e.g., show a user-friendly message)
       }
     );
   }
@@ -178,7 +185,6 @@ export class ProjectDetailComponent implements OnInit {
         },
         (error: any) => {
           console.error('Error adding employees to project:', error);
-          // Handle error appropriately (e.g., show a user-friendly message)
         }
       );
   }
@@ -224,33 +230,27 @@ export class ProjectDetailComponent implements OnInit {
     }
   }
 
-  RedirectToBacklogs()
-  {
-    this.redirectRoute.navigate(
-      ['project/backlogs'],
-      { queryParams: { id: this.currentSelectedProject._id } }
-    );
+  RedirectToBacklogs() {
+    this.redirectRoute.navigate(['project/backlogs'], {
+      queryParams: { id: this.currentSelectedProject._id },
+    });
   }
-  RedirectToSprints()
-  {
-    this.redirectRoute.navigate(
-      ['project/sprints'],
-      { queryParams: { id: this.currentSelectedProject._id } }
-    );
+  RedirectToSprints() {
+    this.redirectRoute.navigate(['project/sprints'], {
+      queryParams: { id: this.currentSelectedProject._id },
+    });
   }
-  RedirectToWorkItems()
-  {
-    this.redirectRoute.navigate(
-      ['project/workitems'],
-      { queryParams: { id: this.currentSelectedProject._id } }
-    );
+  RedirectToWorkItems() {
+    this.redirectRoute.navigate(['project/workitems'], {
+      queryParams: { id: this.currentSelectedProject._id },
+    });
   }
-  RedirectToAssignWorkItems()
-  {
-    this.redirectRoute.navigate(
-      ['project/assign/workitems'],
-      { queryParams: { id: this.currentSelectedProject._id } }
-    );
+  RedirectToAssignWorkItems() {
+    this.redirectRoute.navigate(['project/assign/workitems'], {
+      queryParams: { id: this.currentSelectedProject._id },
+    });
   }
-  
+  RedirectToProjects() {
+    this.redirectRoute.navigate(['projects']);
+  }
 }

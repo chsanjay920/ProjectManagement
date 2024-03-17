@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { backlogModel } from 'src/app/Models/backlog';
+import { AuthenticationService } from 'src/app/Services/authentication.service';
 import { BacklogService } from 'src/app/Services/backlog.service';
 import { ProjectService } from 'src/app/Services/project.service';
 
@@ -11,6 +12,8 @@ import { ProjectService } from 'src/app/Services/project.service';
   styleUrls: ['./backlogs.component.css'],
 })
 export class BacklogsComponent {
+  isLogedIn: boolean = false;
+  isAdmin: boolean = false;
   currentSelectedProject: any;
   BacklogsList: any[] = [];
   BacklogForm = new FormGroup({
@@ -26,13 +29,20 @@ export class BacklogsComponent {
     priority: new FormControl('', [Validators.required]),
     status: new FormControl('NEW'),
   });
+  subscription!: any;
   constructor(
     private backlogservice: BacklogService,
     private route: ActivatedRoute,
     private projectservice: ProjectService,
     private navigationRoute: Router, 
+    private authService: AuthenticationService
   ) {}
   ngOnInit() {
+    this.subscription = this.authService.IsLogedIn.subscribe((data) => {
+      this.isLogedIn = data.IsLogin;
+      this.isAdmin = data.IsAdmin;
+    });
+    this.authService.checkToken();
     this.route.queryParams.subscribe((params) => {
       const projectId = params['id'];
       if (projectId) {

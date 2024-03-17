@@ -1,10 +1,13 @@
+<h4 class="my-3">
+    {{"List of Sprints In Project" | uppercase}}
+</h4>
 <div class="row">
-    <div class="col-3">
+    <div class="col-3" *ngIf="isAdmin">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Create Sprints/Iteration</h5>
                 <p class="card-text">
-                    sprint is a fixed-length development cycle. you can choose Number of weeks to a specific sprint.
+                    Sprint is a fixed-length development cycle. you can choose Number of weeks to a specific sprint.
                 </p>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Add Sprint
@@ -13,7 +16,7 @@
         </div>
     </div>
     <div class="col-2" *ngFor="let sprint of this.SprintsInProjects, let count = index">
-        <div class="card" style="height: 18rem; box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;">
+        <div class="card" style="height: 18rem;  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;">
             <div class="card-body">
                 <small>{{sprint.sprint_name}}</small>
                 <div style="width: 100%;  display: flex;justify-content: center;">

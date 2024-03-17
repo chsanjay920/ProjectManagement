@@ -12,6 +12,8 @@ import { TempdataService } from 'src/app/Services/tempdata.service';
 export class ProjectCardComponent {
   @Input()
   projectDetailes!: ProjectModel;
+  @Input()
+  isAdmin: boolean = false;
   imageslist = [
     '../../../../assets/project1.jpg',
     '../../../../assets/project2.jpg',
@@ -25,22 +27,19 @@ export class ProjectCardComponent {
     '../../../../assets/project10.jpg',
   ];
 
-  isAdmin: boolean = true;
-  constructor(private route: Router, 
+  constructor(
+    private route: Router,
     private projectservice: ProjectService,
-    private tempservice: TempdataService,
-    ) {
-    // this.isAdmin = this.authService.IsAdmin();
-  }
+    private tempservice: TempdataService
+  ) {}
   Edit(project: any) {
     this.tempservice.setSelectedProject(project);
     this.route.navigateByUrl('/project/edit');
   }
   SelectProject(project: any) {
-    this.route.navigate(
-      ['/project/detail'],
-      { queryParams: { id: project._id } }
-    );
+    this.route.navigate(['/project/detail'], {
+      queryParams: { id: project._id },
+    });
   }
   Delete(project: any) {
     console.log(this.projectDetailes);

@@ -5,6 +5,7 @@ import { sprintModel } from 'src/app/Models/sprint';
 import { ProjectService } from 'src/app/Services/project.service';
 import { SprintService } from 'src/app/Services/sprint.service';
 import { DatePipe, formatDate } from '@angular/common';
+import { AuthenticationService } from 'src/app/Services/authentication.service';
 
 @Component({
   selector: 'app-sprints',
@@ -12,6 +13,9 @@ import { DatePipe, formatDate } from '@angular/common';
   styleUrls: ['./sprints.component.css'],
 })
 export class SprintsComponent {
+  isLogedIn: boolean = false;
+  isAdmin: boolean = false;
+  subscription!: any;
   SprintForm = new FormGroup({
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
@@ -33,8 +37,14 @@ export class SprintsComponent {
     private route: ActivatedRoute,
     private projectservice: ProjectService,
     private navigationRoute: Router, 
+    private authService: AuthenticationService
   ) {}
   ngOnInit() {
+    this.subscription = this.authService.IsLogedIn.subscribe((data) => {
+      this.isLogedIn = data.IsLogin;
+      this.isAdmin = data.IsAdmin;
+    });
+    this.authService.checkToken();
     this.route.queryParams.subscribe((params) => {
       const projectId = params['id'];
       if (projectId) {

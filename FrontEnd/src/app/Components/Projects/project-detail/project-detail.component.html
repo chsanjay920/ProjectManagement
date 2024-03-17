@@ -1,6 +1,14 @@
 <div class="card ">
   <div class="card-header">
-    {{"Project Detail Page" | uppercase}}
+    <div class="row">
+      <div class="col-10">
+        {{"Project Detail Page" | uppercase}}
+      </div>
+      <div (click)="RedirectToProjects()" class="col-2" style="text-align: right; cursor: pointer; text-decoration: underline;">
+        Back to Projects
+      </div>
+    </div>
+
   </div>
   <div class="card-body">
     <h5 class="card-title">
@@ -61,7 +69,7 @@
                 {{"Add User Story"| uppercase}}
               </button> -->
             </div>
-            <div class="row mb-5">
+            <div *ngIf="this.isAdmin" class="row mb-5">
               <button class="btn btn-primary col mx-1 " type="button" (click)="RedirectToAssignWorkItems()">
                 {{"Assing Work Items" | uppercase}}
               </button>
