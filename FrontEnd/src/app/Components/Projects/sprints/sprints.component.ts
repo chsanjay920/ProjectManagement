@@ -32,11 +32,12 @@ export class SprintsComponent {
   SprintsInProjects: any[] = [];
   NewSprintStartDate: any;
   NewSprintEndDate: any;
+  CurrentSprint: any;
   constructor(
     private sprintservice: SprintService,
     private route: ActivatedRoute,
     private projectservice: ProjectService,
-    private navigationRoute: Router, 
+    private navigationRoute: Router,
     private authService: AuthenticationService
   ) {}
   ngOnInit() {
@@ -81,7 +82,8 @@ export class SprintsComponent {
   getSprintsInProject(project: any) {
     this.sprintservice.getSprintByProject(project._id).subscribe(
       (sprints: any) => {
-        this.SprintsInProjects = sprints;
+        // this.SprintsInProjects = sprints;
+        this.SprintsInProjects = this.AlterSprintsList(sprints);
         console.log('sprints', this.SprintsInProjects);
         this.setSprintStartDate(project);
       },
@@ -95,7 +97,7 @@ export class SprintsComponent {
       this.NewSprintStartDate = project.start_date;
     } else {
       const latestSprint: any =
-        this.SprintsInProjects[this.SprintsInProjects.length-1];
+        this.SprintsInProjects[this.SprintsInProjects.length - 1];
       this.NewSprintStartDate = latestSprint.end_date;
     }
     this.SprintForm.controls['startDate'].setValue(
@@ -103,25 +105,44 @@ export class SprintsComponent {
     );
   }
   setSprintEndDate(data: any) {
-   
     const weeks = data.value;
-    const endDate = new Date(new Date(this.NewSprintStartDate).getTime() + weeks * 7 * 24 * 60 * 60 * 1000);
+    const endDate = new Date(
+      new Date(this.NewSprintStartDate).getTime() +
+        weeks * 7 * 24 * 60 * 60 * 1000
+    );
     this.SprintForm.controls['endDate'].setValue(
       formatDate(endDate, 'yyyy-MM-dd', 'en')
     );
   }
   redirectToProjectDetails() {
-    this.navigationRoute.navigate(
-      ['/project/detail'],
-      { queryParams: { id: this.currentSelectedProject._id } }
-    );
+    this.navigationRoute.navigate(['/project/detail'], {
+      queryParams: { id: this.currentSelectedProject._id },
+    });
   }
-  redirectToAssignBacklogs(sprint:any)
-  {
-    console.log(sprint);
-    this.navigationRoute.navigate(
-      ['/project/sprints/assign'],
-      { queryParams: { id: sprint._id } }
-    );
+  redirectToAssignBacklogs(sprint: any) {
+    this.navigationRoute.navigate(['/project/sprints/assign'], {
+      queryParams: { id: sprint._id },
+    });
+  }
+  FindCurrentSprint(list: any) {
+    const TodayDate = new Date();
+    var currentsprint = list.filter((obj: any) => {
+      const startDate = new Date(obj.start_date);
+      const endDate = new Date(obj.end_date);
+      return startDate <= TodayDate && TodayDate <= endDate;
+    });
+    if (currentsprint == null) {
+      currentsprint = list[list.length - 1];
+    }
+    return currentsprint;
+  }
+  AlterSprintsList(list: any): any[] {
+    const cSprint = this.FindCurrentSprint(list);
+    console.log(cSprint);
+    return list.map((element: any) => 
+    ({
+      ...element,
+      Active: element._id == cSprint[0]._id,
+    }));
   }
 }
