@@ -1,9 +1,20 @@
 <div class="row">
     <div class="col-4">
         <h4>
-            List Of User Stories
+            List of User Stories in Project
         </h4>
         <div class="container" style="height: 90vh; overflow-y:  scroll;">
+            <div *ngIf="this.AllUnAssignesWorkItemsInThisSprint.length ==0">
+                <div style="
+                background-color: #cbcbcb;
+                    height: 15rem;" class="d-flex flex-column justify-content-center align-items-center">
+                    No Unassigned Backlogs Available in Current Sprint
+                    <div (click)="redirectToSprint()" style="color: cadetblue; text-decoration: underline; cursor: pointer; font-weight: bold;"> 
+                        Add Backlogs to Current Sprint
+                    </div>
+
+                </div>
+            </div>
             <div class="list-group">
                 <div (click)="ToggleStory(story)" class="btn list-group-item list-group-item-action" aria-current="true"
                     *ngFor="let story of this.AllUnAssignesWorkItemsInThisSprint">

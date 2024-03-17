@@ -54,10 +54,6 @@ const routes: Routes = [
   {
     path: 'project/sprints/assign',
     component: AssignStoriesToSprintComponent,
-    canActivate: [authGuard],
-    data: {
-      expectedRole: 'ADMIN',
-    },
   },
   {
     path: 'project/workitems',
@@ -80,10 +76,10 @@ const routes: Routes = [
   {
     path: 'team/add',
     component: AddEmployeeComponent,
-    canActivate: [authGuard],
-    data: {
-      expectedRole: 'ADMIN',
-    },
+    // canActivate: [authGuard],
+    // data: {
+    //   expectedRole: 'ADMIN',
+    // },
   },
 ];
 

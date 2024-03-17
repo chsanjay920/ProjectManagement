@@ -64,8 +64,14 @@ export class WorkItemsComponent implements OnInit{
   {
     this.backlogservice.getBacklogListBySprint(sprintId).subscribe
     ((data)=>{
-      this.AllWorkItemsInThisSprint  = data.filter((item:any)=>item.employee_id !=null);
+      this.AllWorkItemsInThisSprint = data.filter((item:any)=>item.employee_id !=null).reverse();
       console.log(this.AllWorkItemsInThisSprint);
     });
+  }
+  redirectToProjectDetails() {
+    this.navigationRoute.navigate(
+      ['/project/detail'],
+      { queryParams: { id: this.CurrentProject._id } }
+    );
   }
 }

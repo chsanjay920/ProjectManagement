@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/Services/authentication.service';
 import { BacklogService } from 'src/app/Services/backlog.service';
 import { SprintService } from 'src/app/Services/sprint.service';
 import { UserstoryService } from 'src/app/Services/userstory.service';
@@ -10,18 +11,28 @@ import { UserstoryService } from 'src/app/Services/userstory.service';
   styleUrls: ['./assign-stories-to-sprint.component.css'],
 })
 export class AssignStoriesToSprintComponent {
+  subscription: any;
   constructor(
     private userstoryservice: UserstoryService,
     private sprintservice: SprintService,
     private route: ActivatedRoute,
     private redirectRoute: Router,
-    private backlogservice: BacklogService
+    private backlogservice: BacklogService,
+    private authService: AuthenticationService,
+    private navigationRoute: Router
   ) {}
+  isLogedIn: boolean = false;
+  isAdmin: boolean = false;
   CurrentSprintStoriesList: any;
   AddingSprintList: any = [];
   AvailableStories: any;
   CurrentSprint: any;
   ngOnInit() {
+    this.subscription = this.authService.IsLogedIn.subscribe((data) => {
+      this.isLogedIn = data.IsLogin;
+      this.isAdmin = data.IsAdmin;
+    });
+    this.authService.checkToken();
     this.route.queryParams.subscribe((params) => {
       const sprintId = params['id'];
       if (sprintId) {
@@ -73,5 +84,11 @@ export class AssignStoriesToSprintComponent {
           window.alert(error);
         }
       );
+  }
+  redirectToBacklogs() {
+    this.navigationRoute.navigate(
+      ['/project/backlogs'],
+      { queryParams: { id: this.CurrentSprint.project_id } }
+    );
   }
 }

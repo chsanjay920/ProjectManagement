@@ -5,7 +5,7 @@
                 <form [formGroup]="BacklogForm" (ngSubmit)="onAddBacklogFormSubmit()">
                     <div class="container">
                         <div class="row" style="color:cadetblue;">
-                            <h5 class="col" >
+                            <h5 class="col">
                                 Create New Backlog
                             </h5>
                             <div class="col" (click)="redirectToProjectDetails()"
@@ -86,7 +86,7 @@
     <div class="row" *ngIf="!isAdmin">
         <div class="col mb-5">
             <div class="row" style="color:cadetblue;">
-                <h5 class="col" >
+                <h5 class="col">
                     Important Backlogs
                 </h5>
                 <div class="col" (click)="redirectToProjectDetails()"
@@ -95,10 +95,10 @@
                     Back to Project
                 </div>
             </div>
-            
+
             <ol class="list-group list-group-numbered">
                 <li class="list-group-item d-flex justify-content-between align-items-start"
-                    *ngFor="let backlog of BacklogsList[1]">
+                    *ngFor="let backlog of BacklogsList[0]">
                     <div class="ms-2 me-auto">
                         <div class="fw-bold">{{backlog.backlogId}} | {{backlog.backlogTitle}}</div>
                         {{backlog.backlogDescription}}

@@ -72,7 +72,6 @@ export class AssignWorkItemsComponent implements OnInit {
   }
   FindCurrentSprint(list: any) {
     const TodayDate = new Date();
-    console.log(list);
     this.CurrentSprint = list.filter((obj: any) => {
       const startDate = new Date(obj.start_date);
       const endDate = new Date(obj.end_date);
@@ -88,7 +87,10 @@ export class AssignWorkItemsComponent implements OnInit {
     this.backlogservice.getBacklogListBySprint(sprintId).subscribe
     ((data)=>{
       this.AllWorkItemsInThisSprint  = data;
+      console.log(sprintId,data);
       this.AllUnAssignesWorkItemsInThisSprint = data.filter((item:any)=>item.employee_id == null);
+      console.log(this.AllUnAssignesWorkItemsInThisSprint);
+      
     });
   }
   ToggleStory(story:any)
@@ -113,5 +115,12 @@ export class AssignWorkItemsComponent implements OnInit {
     } else {
       alert('Enter Valid Data! All Feilds Are Required.');
     }
+  }
+  redirectToSprint() {
+    console.log(this.CurrentProject);
+    this.navigationRoute.navigate(
+      ['/project/detail'],
+      { queryParams: { id: this.CurrentProject._id } }
+    );
   }
 }
