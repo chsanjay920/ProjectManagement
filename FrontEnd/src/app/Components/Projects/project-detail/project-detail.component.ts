@@ -23,7 +23,7 @@ import { BacklogService } from 'src/app/Services/backlog.service';
 export class ProjectDetailComponent implements OnInit {
   donutData: any = null;
   currentSelectedProject: any;
-  CurrentRunningSprint:any;
+  CurrentRunningSprint: any;
   EmployeesList: any[] = [];
   EmployeesInProject: any[] = [];
   SprintsInProjects: any[] = [];
@@ -95,7 +95,6 @@ export class ProjectDetailComponent implements OnInit {
       }
     });
     this.getAllEmployees();
-    
   }
 
   getEmployeesInProject(project: any) {
@@ -113,10 +112,8 @@ export class ProjectDetailComponent implements OnInit {
     this.sprintservice.getSprintByProject(project._id).subscribe(
       (sprints: any) => {
         this.SprintsInProjects = sprints;
-        if(this.SprintsInProjects.length >0)
-        {
-          this.CurrentRunningSprint = this.FindCurrentSprint(this.SprintsInProjects);
-          this.updateChart(this.CurrentRunningSprint);
+        if (this.SprintsInProjects.length > 0) {
+          this.updateChart(sprints[0]);
         }
       },
       (error: any) => {
@@ -282,10 +279,12 @@ export class ProjectDetailComponent implements OnInit {
       const endDate = new Date(obj.end_date);
       return startDate <= TodayDate && TodayDate <= endDate;
     });
-    if (currentsprint == null) {
-      currentsprint = list[list.length - 1];
+    if (currentsprint != null) {
+      return currentsprint;
     }
-    return currentsprint;
+    if (currentsprint == null) {
+      return list[list.length - 1];
+    }
   }
   RedirectToBacklogs() {
     this.redirectRoute.navigate(['project/backlogs'], {
