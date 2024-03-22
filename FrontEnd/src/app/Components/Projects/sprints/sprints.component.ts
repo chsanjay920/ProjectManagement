@@ -79,12 +79,17 @@ export class SprintsComponent {
       alert('Enter Valid Data! All Feilds Are Required.');
     }
   }
+  createSprint()
+  {
+    this.setSprintStartDate(this.currentSelectedProject);
+  }
   getSprintsInProject(project: any) {
     this.sprintservice.getSprintByProject(project._id).subscribe(
       (sprints: any) => {
-        // this.SprintsInProjects = sprints;
-        this.SprintsInProjects = this.AlterSprintsList(sprints);
-        console.log('sprints', this.SprintsInProjects);
+        if (sprints.length != 0) {
+          this.SprintsInProjects = sprints;
+          this.SprintsInProjects = this.AlterSprintsList(sprints);
+        }
         this.setSprintStartDate(project);
       },
       (error: any) => {
@@ -139,8 +144,7 @@ export class SprintsComponent {
   AlterSprintsList(list: any): any[] {
     const cSprint = this.FindCurrentSprint(list);
     console.log(cSprint);
-    return list.map((element: any) => 
-    ({
+    return list.map((element: any) => ({
       ...element,
       Active: element._id == cSprint[0]._id,
     }));

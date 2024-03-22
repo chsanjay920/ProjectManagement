@@ -13,6 +13,7 @@ import { SprintService } from 'src/app/Services/sprint.service';
 import { userstoryModel } from 'src/app/Models/userstory';
 import { UserstoryService } from 'src/app/Services/userstory.service';
 import { AuthenticationService } from 'src/app/Services/authentication.service';
+import { BacklogService } from 'src/app/Services/backlog.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -20,13 +21,9 @@ import { AuthenticationService } from 'src/app/Services/authentication.service';
   styleUrls: ['./project-detail.component.css'],
 })
 export class ProjectDetailComponent implements OnInit {
-  data: any = [
-    { name: 'New', value: 30, color: '#b2dafb' },
-    { name: 'Active', value: 40, color: '#fc8d2b' },
-    { name: 'Resolved', value: 20, color: '#32c563' },
-    { name: 'Blocker', value: 10, color: '#ff4778' },
-  ];
+  donutData: any = null;
   currentSelectedProject: any;
+  CurrentRunningSprint:any;
   EmployeesList: any[] = [];
   EmployeesInProject: any[] = [];
   SprintsInProjects: any[] = [];
@@ -68,6 +65,7 @@ export class ProjectDetailComponent implements OnInit {
     private projectAssignment: ProjectAssignmentService,
     private employeesService: EmployeeService,
     private userstoryservice: UserstoryService,
+    private backlogservice: BacklogService,
     private route: ActivatedRoute,
     private redirectRoute: Router,
     private authService: AuthenticationService
@@ -97,6 +95,7 @@ export class ProjectDetailComponent implements OnInit {
       }
     });
     this.getAllEmployees();
+    
   }
 
   getEmployeesInProject(project: any) {
@@ -110,11 +109,15 @@ export class ProjectDetailComponent implements OnInit {
       }
     );
   }
-  getSprintsInProject(project: any) {
+  async getSprintsInProject(project: any) {
     this.sprintservice.getSprintByProject(project._id).subscribe(
       (sprints: any) => {
         this.SprintsInProjects = sprints;
-        console.log('sprints', this.SprintsInProjects);
+        if(this.SprintsInProjects.length >0)
+        {
+          this.CurrentRunningSprint = this.FindCurrentSprint(this.SprintsInProjects);
+          this.updateChart(this.CurrentRunningSprint);
+        }
       },
       (error: any) => {
         console.error('Error fetching employees in project:', error);
@@ -131,7 +134,6 @@ export class ProjectDetailComponent implements OnInit {
       }
     );
   }
-
   listUserStories(sprint: any) {
     var newCount = 0;
     var activeCount = 0;
@@ -156,18 +158,64 @@ export class ProjectDetailComponent implements OnInit {
               break;
           }
         });
-        this.data[0].value = 50;
-        this.data[1].value = 50;
-        this.data[2].value = 0;
-        this.data[3].value = 0;
+        this.donutData[0].value = 50;
+        this.donutData[1].value = 50;
+        this.donutData[2].value = 0;
+        this.donutData[3].value = 0;
 
-        console.log(this.data);
+        console.log(this.donutData);
       },
       (error: any) => {
         console.error('Error fetching all employees:', error);
       }
     );
   }
+  updateChart(sprint: any) {
+    var newCount = 0;
+    var activeCount = 0;
+    var resolvedCount = 0;
+    var blockerCount = 0;
+    this.backlogservice.getBacklogListBySprint(sprint._id).subscribe(
+      (userstorylist: any) => {
+        if (userstorylist.length > 0) {
+          this.UserStoriesList = userstorylist;
+          this.UserStoriesList.forEach((obj) => {
+            switch (obj.status) {
+              case 'New':
+                newCount++;
+                break;
+              case 'Active':
+                activeCount++;
+                break;
+              case 'Resolved':
+                blockerCount++;
+                break;
+              case 'Blocker':
+                resolvedCount++;
+                break;
+            }
+            this.donutData = [
+              { name: 'New', value: newCount, color: '#b2dafb' },
+              { name: 'Active', value: activeCount, color: '#fc8d2b' },
+              { name: 'Resolved', value: resolvedCount, color: '#32c563' },
+              { name: 'Blocker', value: blockerCount, color: '#ff4778' },
+            ];
+          });
+        } else {
+          this.donutData = [
+            { name: 'New', value: 100, color: '#b2dafb' },
+            { name: 'Active', value: 0, color: '#fc8d2b' },
+            { name: 'Resolved', value: 0, color: '#32c563' },
+            { name: 'Blocker', value: 0, color: '#ff4778' },
+          ];
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching all employees:', error);
+      }
+    );
+  }
+
   onSelectedEmployeesSubmit() {
     const selectedEmployees = this.EmployeesList.filter(
       (emp: any) => emp.selected
@@ -188,7 +236,6 @@ export class ProjectDetailComponent implements OnInit {
         }
       );
   }
-
   getRandomName() {
     return (Math.floor(Math.random() * 10000) + 10000)
       .toString()
@@ -211,7 +258,6 @@ export class ProjectDetailComponent implements OnInit {
       alert('Enter Valid Data! All Feilds Are Required.');
     }
   }
-
   onUserStoryFormSubmit() {
     if (this.UserstoryForm.status == 'VALID') {
       var userstory: userstoryModel = {
@@ -229,7 +275,18 @@ export class ProjectDetailComponent implements OnInit {
       alert('Enter Valid Data! All Feilds Are Required.');
     }
   }
-
+  FindCurrentSprint(list: any) {
+    const TodayDate = new Date();
+    var currentsprint = list.filter((obj: any) => {
+      const startDate = new Date(obj.start_date);
+      const endDate = new Date(obj.end_date);
+      return startDate <= TodayDate && TodayDate <= endDate;
+    });
+    if (currentsprint == null) {
+      currentsprint = list[list.length - 1];
+    }
+    return currentsprint;
+  }
   RedirectToBacklogs() {
     this.redirectRoute.navigate(['project/backlogs'], {
       queryParams: { id: this.currentSelectedProject._id },
@@ -253,8 +310,7 @@ export class ProjectDetailComponent implements OnInit {
   RedirectToProjects() {
     this.redirectRoute.navigate(['projects']);
   }
-  RedirectToMyAssignments()
-  {
+  RedirectToMyAssignments() {
     this.redirectRoute.navigate(['project/myitems'], {
       queryParams: { id: this.currentSelectedProject._id },
     });

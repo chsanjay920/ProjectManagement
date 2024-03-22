@@ -96,8 +96,6 @@ router.post('/assign/team', async (req, res) => {
         const backlogId = req.body.backlogId;
         const status = req.body.status;
         const employeeId = req.body.employeeId;
-
-        console.log(req.body);
         const existingBacklog = await Backlog.findById(backlogId);
         existingBacklog.status = status;
         existingBacklog.employee_id = employeeId;
@@ -112,12 +110,10 @@ router.post('/assign/team', async (req, res) => {
 
 
 //update backlog status
-router.post('/backlogs/update', async (req, res) => {
+router.post('/update', async (req, res) => {
     try {
         const backlogId = req.body.backlogId;
         const status = req.body.status;
-
-        console.log(req.body);
         const existingBacklog = await Backlog.findById(backlogId);
         existingBacklog.status = status;
         await existingBacklog.save();

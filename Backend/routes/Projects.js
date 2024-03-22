@@ -52,8 +52,7 @@ router.post('/', async (req, res) => {
             project: Newproject._id,
             employees: []
         });
-        newProjectAssignment.save()
-        console.log(Newproject);
+        newProjectAssignment.save();
         res.status(201).json(Newproject)
     } catch (err) {
         res.status(400).json({ message: err.message })

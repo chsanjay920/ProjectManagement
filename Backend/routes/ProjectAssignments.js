@@ -9,8 +9,6 @@ router.get('/:id', async (req, res) => {
     try{
         const { project_id } = req.params.id;
         const employees = await ProjectAssignment.findOne({ project: project_id }).populate('employees');
-        console.log(employees);
-        //res.status(201).json({ message: 'Assignment created successfully' });
         res.json(employees);
     }catch(error)
     {   
@@ -46,13 +44,25 @@ router.get('/project/:id', async (req, res) => {
     }
 });
 
+//get projects based on employee id
+router.get('/user/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const projects =  await ProjectAssignment.find({ employees: id }).populate('project');
+        res.json(projects);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
 
 
 
 router.put('/', async (req, res) => {
     try {
         const { project_id, employees_id } = req.body;
-        console.log(employees_id);
         await ProjectAssignment.updateOne(
             { project: project_id },
             { $addToSet: { employees: employees_id } }

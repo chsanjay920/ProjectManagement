@@ -17,4 +17,9 @@ export class ProjectAssignmentService {
       `${this.apiUrl}projectassignments/project/${projectid}`
     );
   }
+  getProjectByEmployee(employeeid:any):any{
+    return this.http.get<any[]>(
+      `${this.apiUrl}projectassignments/user/${employeeid}`
+    );
+  }
 }

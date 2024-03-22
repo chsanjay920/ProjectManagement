@@ -25,7 +25,7 @@
               Sprints List
             </h5>
             <ol class="list-group list-group-numbered">
-              <button class="list-group-item list-group-item-action " type="button" (click)="listUserStories(sprint)"
+              <button class="list-group-item list-group-item-action " type="button" (click)="updateChart(sprint)"
                 *ngFor="let sprint of this.SprintsInProjects">
                 {{sprint.sprint_name}}
               </button>
@@ -184,13 +184,24 @@
         </div>
         <div class="row">
           <div class="col">
-            <div class="container pb-3 d-flex justify-content-center">
+            <div class="container pb-3 d-flex flex-column justify-content-center ">
               <div class="text-center">
                 <b>
-                  {{"Current Sprint Status" | uppercase}}
+                  {{"Current Sprint" | uppercase}}
+                  <br>
                 </b>
               </div>
-              <app-dough-nut style="width: 60%;" [Data]="this.data" [Id]="'piechart'"></app-dough-nut>
+              <div class="text-center" *ngIf="this.donutData ==null">
+                <b>
+                  {{"Select Sprint to Get status" | uppercase}}
+                </b>
+              </div>
+              <app-dough-nut *ngIf="this.donutData !=null" [Data]="this.donutData" [Id]="'piechart'"></app-dough-nut>
+              <div class="text-center" style="color: cadetblue;" *ngIf="this.donutData !=null">
+                <b>
+                  {{"Current selected Sprint analysis" | uppercase}}
+                </b>
+              </div>
             </div>
           </div>
         </div>

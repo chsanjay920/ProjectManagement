@@ -53,7 +53,6 @@ router.post('/employee', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        console.log(req);
         const employee = await Employee.findByIdAndDelete(req.params.id);
         if (!employee) {
             return res.status(404).json({ message: 'Employee not found' });

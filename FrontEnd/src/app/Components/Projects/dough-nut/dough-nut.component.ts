@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnDestroy, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
 @Component({
@@ -7,22 +7,34 @@ import { Chart, registerables } from 'chart.js';
   styleUrls: ['./dough-nut.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class DoughNutComponent implements AfterViewInit {
-  constructor() {
-    
+export class DoughNutComponent implements AfterViewInit, OnChanges, OnDestroy {
+  public chartInstance: any = null;
+
+  constructor() {}
+
+  @Input() Data: any;
+  @Input() Id: string = "";
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['Data'] && !changes['Data'].firstChange) {
+      this.updatePieChart();
+    }
   }
-  @Input()
-  Data:any;
-  @Input() Id:String = "";
 
   ngAfterViewInit(): void {
-    console.log('Canvas ID:', this.Id);
     this.setupPieChart();
   }
+
+  ngOnDestroy(): void {
+    if (this.chartInstance) {
+      this.chartInstance.destroy();
+    }
+  }
+
   setupPieChart() {
     const ctx = document.getElementById(this.Id.toString()) as HTMLCanvasElement;
     Chart.register(...registerables);
-    const pieChart = new Chart(ctx, {
+    this.chartInstance = new Chart(ctx, {
       type: 'doughnut',
       data: {
         labels: this.Data.map((d: { name: any }) => d.name),
@@ -33,8 +45,16 @@ export class DoughNutComponent implements AfterViewInit {
           },
         ],
       },
-      options: {
-      },
+      options: {},
     });
+  }
+
+  updatePieChart() {
+    if (this.chartInstance) {
+      this.chartInstance.data.labels = this.Data.map((d: { name: any }) => d.name);
+      this.chartInstance.data.datasets[0].data = this.Data.map((d: { value: any }) => d.value);
+      this.chartInstance.data.datasets[0].backgroundColor = this.Data.map((d: { color: any }) => d.color);
+      this.chartInstance.update();
+    }
   }
 }
