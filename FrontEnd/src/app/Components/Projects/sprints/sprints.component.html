@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <div class="col-2" *ngFor="let sprint of this.SprintsInProjects, let count = index">
+    <div class="col-3" *ngFor="let sprint of this.SprintsInProjects, let count = index">
         <div class="card my-3" [ngStyle]="{'border': sprint.Active ? '3px double cadetblue' : 'black'}" style="height: 18rem;  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;">
             <div class="card-body">
                 <small *ngIf="sprint.Active">Current sprint: </small>
