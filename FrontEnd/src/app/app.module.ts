@@ -21,6 +21,7 @@ import { AssignStoriesToSprintComponent } from './Components/Projects/assign-sto
 import { WorkItemsComponent } from './Components/Projects/work-items/work-items.component';
 import { AssignWorkItemsComponent } from './Components/Projects/assign-work-items/assign-work-items.component';
 import { MyitemsComponent } from './Components/Projects/myitems/myitems.component';
+import { ProfileComponent } from './Components/Employees/profile/profile.component';
 
 
 
@@ -42,7 +43,8 @@ import { MyitemsComponent } from './Components/Projects/myitems/myitems.componen
     AssignStoriesToSprintComponent,
     WorkItemsComponent,
     AssignWorkItemsComponent,
-    MyitemsComponent
+    MyitemsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -15,6 +15,7 @@ import { WorkItemsComponent } from './Components/Projects/work-items/work-items.
 import { AssignWorkItemsComponent } from './Components/Projects/assign-work-items/assign-work-items.component';
 import { authGuard } from './Gaurds/auth.guard';
 import { MyitemsComponent } from './Components/Projects/myitems/myitems.component';
+import { ProfileComponent } from './Components/Employees/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -85,6 +86,10 @@ const routes: Routes = [
   {
     path:"project/myitems",
     component: MyitemsComponent
+  },
+  {
+    path:"profile",
+    component: ProfileComponent
   }
 ];
 

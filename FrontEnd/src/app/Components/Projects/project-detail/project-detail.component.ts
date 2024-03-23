@@ -185,10 +185,10 @@ export class ProjectDetailComponent implements OnInit {
                 activeCount++;
                 break;
               case 'Resolved':
-                blockerCount++;
+                resolvedCount++;
                 break;
               case 'Blocker':
-                resolvedCount++;
+                blockerCount++;
                 break;
             }
             this.donutData = [

@@ -13,6 +13,7 @@ const projectassignmentRouter = require('./routes/ProjectAssignments')
 const sprintRouter = require('./routes/Sprints')
 const userstoryRouter = require('./routes/UserStories')
 const backlogRouter = require('./routes/Backlogs')
+const populateRouter = require('./routes/PopulateData')
 
 const cors = require('cors');
 app.use(express.json())
@@ -24,6 +25,7 @@ app.use('/projectassignments',projectassignmentRouter)
 app.use('/sprints',sprintRouter);
 app.use('/userstories',userstoryRouter);
 app.use('/backlogs',backlogRouter);
+app.use('/populate',populateRouter);
 
 
 app.listen(3000, () => console.log('Server Started'))
